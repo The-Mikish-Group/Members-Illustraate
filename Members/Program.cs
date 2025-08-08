@@ -51,7 +51,7 @@ builder.Services.AddDbContext<DataProtectionKeyDbContext>(options =>
 // Configure Data Protection to use Entity Framework Core store
 builder.Services.AddDataProtection()
     .PersistKeysToDbContext<DataProtectionKeyDbContext>()
-    .SetApplicationName("MembersIllustrateApplication"); // Unique name for the application   
+    .SetApplicationName("MembersApplication"); // Unique name for the application   
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
