@@ -1,7 +1,7 @@
 using TaskStatus = Members.Models.TaskStatus;
 using Members.Data;
 using Members.Filters;
-using Members.Models; // Add this to access UserProfile
+using Members.Models;
 using Members.Services;
 using Microsoft.AspNetCore.DataProtection; // Added for Data Protection
 using Microsoft.AspNetCore.Identity;
@@ -15,11 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Register Syncfusion license
 string SYNCFUSION_KEY = Environment.GetEnvironmentVariable("SYNCFUSION_KEY")!;
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(SYNCFUSION_KEY);
-//Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF5cXmRCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXdeeHVUQ2NeUk1zXUJWYEk=");
-
-
-
-
 
 // Retrieve connection string from environment variables
 string DB_SERVER = Environment.GetEnvironmentVariable("DB_SERVER_ILLUSTRATE")!;
@@ -56,7 +51,7 @@ builder.Services.AddDbContext<DataProtectionKeyDbContext>(options =>
 // Configure Data Protection to use Entity Framework Core store
 builder.Services.AddDataProtection()
     .PersistKeysToDbContext<DataProtectionKeyDbContext>()
-    .SetApplicationName("MembersApplication"); // Unique name for the application   
+    .SetApplicationName("MembersIllustrateApplication"); // Unique name for the application   
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
