@@ -15,7 +15,7 @@
 </head>
 
 <!-- Banner Logo -->
-<partial name="_PartialBannerLogo" />
+
 
 @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Member") || User.IsInRole("Admin") || User.IsInRole("Manager")))
 {

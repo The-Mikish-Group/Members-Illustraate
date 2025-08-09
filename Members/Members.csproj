@@ -25,6 +25,11 @@
     <NoWarn>1701;1702;CA1862</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="Views\Info\About.cshtml" />
+    <Content Remove="Views\Info\Facilities.cshtml" />
+    <Content Remove="Views\Info\MoreLinks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Properties\PublishProfiles\avonparknaz-001-site7 - FTP.pubxml.user" />
     <None Include="Properties\PublishProfiles\avonparknaz-001-site7 - Web Deploy.pubxml.user" />
     <None Include="Properties\PublishProfiles\avonparknaz-001-subsite12 - FTP.pubxml.user" />

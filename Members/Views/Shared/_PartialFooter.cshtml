@@ -20,8 +20,8 @@
             <div class="col-4 pb-md-2">
                 <ul class="navbar-nav flex-nowrap ps-2 pt-2" style="max-width:160px;">
                     <li class="nav-item text-light"><a class="rounded-2 nav-link footer-fs text-nowrap px-2" style="max-width:85px;" href="~/Info/"><i class="bi bi-house-fill"></i> Welcome</a></li>
-                    <li class="nav-item text-light"><a class="rounded-2 nav-link footer-fs text-nowrap px-2" style="max-width:85px;" href="~/Info/About"><i class="bi bi-info-circle-fill"></i> About Us</a></li>
-                    <li class="nav-item text-light"><a class="rounded-2 nav-link footer-fs text-nowrap px-2" style="max-width:85px;" href="~/Info/Facilities"><i class="bi bi-building-fill"></i> Facilities</a></li>
+                    @* <li class="nav-item text-light"><a class="rounded-2 nav-link footer-fs text-nowrap px-2" style="max-width:85px;" href="~/Info/About"><i class="bi bi-info-circle-fill"></i> About Us</a></li>
+                    <li class="nav-item text-light"><a class="rounded-2 nav-link footer-fs text-nowrap px-2" style="max-width:85px;" href="~/Info/Facilities"><i class="bi bi-building-fill"></i> Facilities</a></li> *@
                     <li class="nav-item text-light"><a class="rounded-2 nav-link footer-fs text-nowrap px-2" style="max-width:85px;" href="~/Image/GalleryList"><i class="bi bi-image"></i> Galleries</a></li>
                 </ul>
             </div>
@@ -35,9 +35,9 @@
                     </li>
 
                     <!-- More Links in the footer -->
-                    <li class="nav-item text-light">
+                   @*  <li class="nav-item text-light">
                         <a class="rounded-2 nav-link footer-fs text-nowrap px-2" style="max-width:100px;" href="~/Info/MoreLinks"><i class="bi bi-link"></i> More Links</a>
-                    </li>
+                    </li> *@
 
                      <!-- Members Dropdown -->
                     @if (SignInManager.IsSignedIn(User))
@@ -54,11 +54,11 @@
                             <ul class="dropdown-menu ps-lg-2 border-0 bg-transparent ps-4" aria-labelledby="membersFooterDropdown" style="margin-top: 0; width:180px;">
 
                                 <!-- News and Notices -->
-                                <li class="nav-item text-light">
+                                @* <li class="nav-item text-light">
                                     <a class="rounded-2 nav-link footer-fs text-nowrap ps-2" style="width:175px;" asp-area="" asp-controller="Home" asp-action="Notices" target="_blank">
                                         <i class="bi bi-newspaper"></i> News and Notices
                                     </a>
-                                </li>
+                                </li> *@
 
                                 <!--  "PDF Documents" -->
                                 <li class="nav-item text-light">

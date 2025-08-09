@@ -1,31 +1,449 @@
-﻿@{
-    string siteName = Environment.GetEnvironmentVariable("SITE_NAME_ILLUSTRATE")!;
-    string siteURL = Environment.GetEnvironmentVariable("SITE_URL_ILLUSTRATE")!;
+﻿<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOA Accounting Solutions - Professional Member & Billing Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    ViewData["Title"] = "Welcome to " +  siteName + ".";
-    ViewData["Canonical"] = siteURL + "/Info/index";
-    ViewData["OGDescription"] = "Explore our community and learn more about us.";
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #e67e22 0%, #d35400 50%, #27ae60 100%);
+            min-height: 100vh;
+        }
 
-    ViewData["Description"] = ViewData["Title"] + " " + siteName;
-    ViewData["OGTitle"] = ViewData["Title"];
-    ViewData["OGURL"] = ViewData["Canonical"];
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-<!-- View -->
-<head>
-    <title>@ViewData["Title"]</title>
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c5530;
+            text-decoration: none;
+        }
+
+            .logo svg {
+                transition: transform 0.3s ease;
+            }
+
+            .logo:hover svg {
+                transform: rotate(5deg) scale(1.1);
+            }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+            .nav-links a {
+                text-decoration: none;
+                color: #2c5530;
+                font-weight: 500;
+                transition: color 0.3s ease;
+            }
+
+                .nav-links a:hover {
+                    color: #16a085;
+                }
+
+        .hero {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+        }
+
+            .hero h1 {
+                font-size: 3.5rem;
+                margin-bottom: 1rem;
+                font-weight: 700;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+                margin-bottom: 2rem;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+            .cta-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+                background: linear-gradient(135deg, #d35400, #a0522d);
+            }
+
+        .features {
+            background: white;
+            padding: 4rem 0;
+        }
+
+            .features h2 {
+                text-align: center;
+                font-size: 2.5rem;
+                margin-bottom: 3rem;
+                color: #2c5530;
+            }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f4f1de, #e9c46a);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 4px solid #16a085;
+        }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c5530;
+        }
+
+        .feature-card p {
+            color: #5d4e37;
+            line-height: 1.6;
+        }
+
+        .grade-highlight {
+            background: linear-gradient(135deg, #16a085, #27ae60);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .grade-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grade {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .testimonial {
+            background: #f4f1de;
+            padding: 4rem 0;
+        }
+
+        .testimonial-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #5d4e37;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .author {
+            font-weight: bold;
+            color: #2c5530;
+        }
+
+        .capabilities {
+            background: white;
+            padding: 4rem 0;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .capability-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f4f1de;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-left: 3px solid #16a085;
+        }
+
+            .capability-item:hover {
+                background: #e9c46a;
+                transform: translateX(5px);
+            }
+
+            .capability-item::before {
+                content: "✓";
+                background: #27ae60;
+                color: white;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 1rem;
+                font-weight: bold;
+            }
+
+        .pricing {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+            .pricing h2 {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+
+        .contact {
+            background: #2c5530;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+       /*  media (max-width: 768px) {
+            .hero h1
+
+        {
+            font-size: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        .contact-info {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        } */
+    </style>
 </head>
 
-<style>
-   body {        
-        background-image: url('/Images/PageImages/background-home.webp');
-        background-size: cover; /* Scales to cover entire area */
-        background-position: center center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevents image repetition */
-        background-attachment: fixed; /* Optional: keeps background fixed during scroll */
-        min-height: 100vh; /* Ensures full viewport height */
-    }
-</style>
+   
+    <div class="container">
+        <div class="header-content">            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#capabilities">Capabilities</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                   @*  <li><a href="#contact">Contact</a></li> *@
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <section class="hero">
+        <div class="container">
+            <h1>Enterprise-Grade HOA Management</h1>
+            <p>Professional accounting software designed specifically for Homeowner's Associations. Streamline member management, automate billing, and maintain comprehensive financial records with our A+ rated system.</p>
+            <a href="#contact" class="cta-button">Get Your Custom Setup</a>
+        </div>
+    </section>
+
+    <section class="grade-highlight">
+        <div class="container">
+            <div class="grade-box">
+                <div class="grade">A+</div>
+                <h2>Professional Code Review Rating</h2>
+                <p>"Exceptionally well-engineered, enterprise-grade system that demonstrates a masterful understanding of modern software development principles and complex accounting workflows."</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Powerful Features Built for HOAs</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">👥</span>
+                    <h3>Member Management</h3>
+                    <p>Complete member database with role-based access, contact management, and profile customization. Members can view their billing history directly in their profiles.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">💰</span>
+                    <h3>Automated Billing</h3>
+                    <p>Intelligent batch invoice creation for monthly assessments with automatic credit application and sophisticated overpayment handling.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Financial Tracking</h3>
+                    <p>Comprehensive accounts receivable with detailed audit trails, payment tracking, and balance management. Full transactional integrity guaranteed.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Smart Automation</h3>
+                    <p>Automatic late fee calculation, credit balance application, and intelligent payment distribution across multiple invoices.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📧</span>
+                    <h3>Email Notifications</h3>
+                    <p>Automated balance notifications sent to members with outstanding balances, including late fees and upcoming due dates.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3>Data Security</h3>
+                    <p>Role-based access control, secure member authentication, and comprehensive audit logging for all financial transactions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial">
+        <div class="container">
+            <div class="testimonial-content">
+                <div class="quote">
+                    "The code quality is consistently outstanding across all pages, featuring modern C# and ASP.NET Core practices, comprehensive logging, robust error handling, and a strong focus on data integrity. This is a production-ready, feature-complete, and highly polished A/R system that could be deployed in a demanding business environment without hesitation."
+                </div>
+                <div class="author">— Independent Code Review</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="capabilities" class="capabilities">
+        <div class="container">
+            <h2>Complete HOA Management Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-item">Plot & Asset Management</div>
+                <div class="capability-item">Monthly Assessment Billing</div>
+                <div class="capability-item">Payment Processing & Tracking</div>
+                <div class="capability-item">Late Fee Automation</div>
+                <div class="capability-item">Credit Balance Management</div>
+                <div class="capability-item">Draft & Batch Invoice Review</div>
+                <div class="capability-item">Member Portal Access</div>
+                <div class="capability-item">Billing History Reports</div>
+                <div class="capability-item">Email Notifications</div>
+                <div class="capability-item">Audit Trail Logging</div>
+                <div class="capability-item">Multi-Plot Member Support</div>
+                <div class="capability-item">Transaction Reversal Capability</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Custom Setup for Your HOA</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Every HOA is unique. We provide custom website setup tailored to your specific needs, number of plots, and organizational structure.</p>
+            <a href="/info/contact" class="cta-button">Request Custom Quote</a>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Ready to Modernize Your HOA Management?</h2>
+            <p>Contact us today for a custom setup consultation</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>mikish.vaughn@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>🏢</span>
+                    <span>The Mikish Group</span>
+                </div>
+                <div class="contact-item">
+                    <span>💻</span>
+                    <span>ASP.NET MVC .NET 9 Solutions</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
 
 

@@ -17,7 +17,7 @@ GO
 
 -- Table: dbo.AdminTaskInstances
 CREATE TABLE [dbo].[AdminTaskInstances] (
-    [TaskInstanceID] int NOT NULL,
+    [TaskInstanceID] int IDENTITY(1,1) NOT NULL,
     [TaskID] int NOT NULL,
     [Year] int NOT NULL,
     [Month] int NOT NULL,
@@ -34,7 +34,7 @@ GO
 
 -- Table: dbo.AdminTasks
 CREATE TABLE [dbo].[AdminTasks] (
-    [TaskID] int NOT NULL,
+    [TaskID] int IDENTITY(1,1) NOT NULL,
     [TaskName] nvarchar(200) NOT NULL,
     [Description] nvarchar(1000) NULL,
     [Frequency] int NOT NULL DEFAULT ((1)),
@@ -53,7 +53,7 @@ GO
 
 -- Table: dbo.AspNetRoleClaims
 CREATE TABLE [dbo].[AspNetRoleClaims] (
-    [Id] int NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [RoleId] nvarchar(450) NOT NULL,
     [ClaimType] nvarchar(MAX) NULL,
     [ClaimValue] nvarchar(MAX) NULL
@@ -71,7 +71,7 @@ GO
 
 -- Table: dbo.AspNetUserClaims
 CREATE TABLE [dbo].[AspNetUserClaims] (
-    [Id] int NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [UserId] nvarchar(450) NOT NULL,
     [ClaimType] nvarchar(MAX) NULL,
     [ClaimValue] nvarchar(MAX) NULL
@@ -125,7 +125,7 @@ GO
 
 -- Table: dbo.BillableAssets
 CREATE TABLE [dbo].[BillableAssets] (
-    [BillableAssetID] int NOT NULL,
+    [BillableAssetID] int IDENTITY(1,1) NOT NULL,
     [PlotID] nvarchar(100) NOT NULL,
     [UserID] nvarchar(450) NULL,
     [DateCreated] datetime2(7) NOT NULL,
@@ -137,16 +137,16 @@ GO
 
 -- Table: dbo.CategoryFiles
 CREATE TABLE [dbo].[CategoryFiles] (
-    [FileID] int NOT NULL,
+    [FileID] int IDENTITY(1,1) NOT NULL,
     [CategoryID] int NOT NULL,
     [FileName] nvarchar(255) NOT NULL,
     [SortOrder] int NOT NULL
 );
 GO
 
--- Table: dbo.ColorVars
+-- Table: dbo.ColorVars (FIXED - Added IDENTITY)
 CREATE TABLE [dbo].[ColorVars] (
-    [Id] int NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(50) NOT NULL,
     [Value] nvarchar(7) NOT NULL
 );
@@ -154,7 +154,7 @@ GO
 
 -- Table: dbo.CreditApplications
 CREATE TABLE [dbo].[CreditApplications] (
-    [CreditApplicationID] int NOT NULL,
+    [CreditApplicationID] int IDENTITY(1,1) NOT NULL,
     [UserCreditID] int NOT NULL,
     [InvoiceID] int NOT NULL,
     [AmountApplied] decimal(18,2) NOT NULL,
@@ -165,11 +165,23 @@ CREATE TABLE [dbo].[CreditApplications] (
 );
 GO
 
--- Table: dbo.DataProtectionKeys
+-- Table: dbo.DataProtectionKeys (FIXED - Added IDENTITY)
 CREATE TABLE [dbo].[DataProtectionKeys] (
-    [Id] int NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [FriendlyName] nvarchar(MAX) NULL,
     [Xml] nvarchar(MAX) NULL
+);
+GO
+
+-- Table: dbo.Files (Added missing Files table)
+CREATE TABLE [dbo].[Files] (
+    [FileID] int IDENTITY(1,1) NOT NULL,
+    [FileName] nvarchar(255) NOT NULL,
+    [FileSize] bigint NOT NULL,
+    [ContentType] nvarchar(255) NOT NULL,
+    [UploadDate] datetime2(7) NOT NULL DEFAULT (getutcdate()),
+    [FilePath] nvarchar(500) NOT NULL,
+    [UploadedByUserId] nvarchar(450) NULL
 );
 GO
 
@@ -192,7 +204,7 @@ GO
 
 -- Table: dbo.Invoices
 CREATE TABLE [dbo].[Invoices] (
-    [InvoiceID] int NOT NULL,
+    [InvoiceID] int IDENTITY(1,1) NOT NULL,
     [UserID] nvarchar(450) NOT NULL,
     [InvoiceDate] datetime2(7) NOT NULL,
     [DueDate] datetime2(7) NOT NULL,
@@ -210,7 +222,7 @@ GO
 
 -- Table: dbo.Payments
 CREATE TABLE [dbo].[Payments] (
-    [PaymentID] int NOT NULL,
+    [PaymentID] int IDENTITY(1,1) NOT NULL,
     [InvoiceID] int NULL,
     [UserID] nvarchar(450) NOT NULL,
     [PaymentDate] datetime2(7) NOT NULL,
@@ -229,7 +241,7 @@ GO
 
 -- Table: dbo.PDFCategories
 CREATE TABLE [dbo].[PDFCategories] (
-    [CategoryID] int NOT NULL,
+    [CategoryID] int IDENTITY(1,1) NOT NULL,
     [CategoryName] nvarchar(255) NOT NULL,
     [SortOrder] int NOT NULL,
     [IsAdminOnly] bit NOT NULL DEFAULT ((0))
@@ -238,7 +250,7 @@ GO
 
 -- Table: dbo.TaskStatusMessages
 CREATE TABLE [dbo].[TaskStatusMessages] (
-    [MessageID] int NOT NULL,
+    [MessageID] int IDENTITY(1,1) NOT NULL,
     [UserId] nvarchar(450) NOT NULL,
     [DismissedAt] datetime2(7) NOT NULL,
     [DismissalCount] int NOT NULL DEFAULT ((1))
@@ -247,7 +259,7 @@ GO
 
 -- Table: dbo.UserCredits
 CREATE TABLE [dbo].[UserCredits] (
-    [UserCreditID] int NOT NULL,
+    [UserCreditID] int IDENTITY(1,1) NOT NULL,
     [UserID] nvarchar(450) NOT NULL,
     [CreditDate] datetime2(7) NOT NULL,
     [Amount] decimal(18,2) NOT NULL,
@@ -302,6 +314,7 @@ ALTER TABLE [dbo].[CategoryFiles] ADD CONSTRAINT [PK__Category__6F0F989F715171EF
 ALTER TABLE [dbo].[ColorVars] ADD CONSTRAINT [PK__ColorVar__3214EC07BA486D82] PRIMARY KEY (Id);
 ALTER TABLE [dbo].[CreditApplications] ADD CONSTRAINT [PK_CreditApplications] PRIMARY KEY (CreditApplicationID);
 ALTER TABLE [dbo].[DataProtectionKeys] ADD CONSTRAINT [PK_DataProtectionKeys] PRIMARY KEY (Id);
+ALTER TABLE [dbo].[Files] ADD CONSTRAINT [PK_Files] PRIMARY KEY (FileID);
 ALTER TABLE [dbo].[ImportFile] ADD CONSTRAINT [PK__tmp_ms_x__A9D105359AF17BFF] PRIMARY KEY (Email);
 ALTER TABLE [dbo].[Invoices] ADD CONSTRAINT [PK_Invoices] PRIMARY KEY (InvoiceID);
 ALTER TABLE [dbo].[Payments] ADD CONSTRAINT [PK_Payments] PRIMARY KEY (PaymentID);
@@ -312,40 +325,74 @@ ALTER TABLE [dbo].[UserProfile] ADD CONSTRAINT [PK__tmp_ms_x__1788CC4C1974C704] 
 GO
 
 -- ================================================
--- STEP 3: ADD FOREIGN KEY CONSTRAINTS
--- ================================================
--- Note: You still need to run the Foreign Key query to get these
--- Add the FK constraints here when you get them
-
--- ================================================
--- STEP 4: CREATE INDEXES
+-- STEP 3: CREATE INDEXES
 -- ================================================
 CREATE NONCLUSTERED INDEX [IX_AdminTaskInstances_Status] ON [dbo].[AdminTaskInstances] (Status ASC);
 CREATE NONCLUSTERED INDEX [IX_AdminTaskInstances_TaskID] ON [dbo].[AdminTaskInstances] (TaskID ASC);
 CREATE NONCLUSTERED INDEX [IX_AdminTaskInstances_Year_Month] ON [dbo].[AdminTaskInstances] (Year ASC, Month ASC);
 CREATE NONCLUSTERED INDEX [IX_AspNetRoleClaims_RoleId] ON [dbo].[AspNetRoleClaims] (RoleId ASC);
-CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex] ON [dbo].[AspNetRoles] (NormalizedName ASC);
+CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex] ON [dbo].[AspNetRoles] (NormalizedName ASC) WHERE ([NormalizedName] IS NOT NULL);
 CREATE NONCLUSTERED INDEX [IX_AspNetUserClaims_UserId] ON [dbo].[AspNetUserClaims] (UserId ASC);
 CREATE NONCLUSTERED INDEX [IX_AspNetUserLogins_UserId] ON [dbo].[AspNetUserLogins] (UserId ASC);
 CREATE NONCLUSTERED INDEX [IX_AspNetUserRoles_RoleId] ON [dbo].[AspNetUserRoles] (RoleId ASC);
 CREATE NONCLUSTERED INDEX [EmailIndex] ON [dbo].[AspNetUsers] (NormalizedEmail ASC);
-CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex] ON [dbo].[AspNetUsers] (NormalizedUserName ASC);
+CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex] ON [dbo].[AspNetUsers] (NormalizedUserName ASC) WHERE ([NormalizedUserName] IS NOT NULL);
+CREATE UNIQUE NONCLUSTERED INDEX [IX_BillableAssets_PlotID] ON [dbo].[BillableAssets] (PlotID ASC);
+CREATE NONCLUSTERED INDEX [IX_BillableAssets_UserID] ON [dbo].[BillableAssets] (UserID ASC);
 CREATE NONCLUSTERED INDEX [IX_CategoryFiles_CategoryID] ON [dbo].[CategoryFiles] (CategoryID ASC);
+CREATE NONCLUSTERED INDEX [IX_ColorVars_Name] ON [dbo].[ColorVars] (Name ASC);
 CREATE NONCLUSTERED INDEX [IX_CreditApplications_InvoiceID] ON [dbo].[CreditApplications] (InvoiceID ASC);
 CREATE NONCLUSTERED INDEX [IX_CreditApplications_UserCreditID] ON [dbo].[CreditApplications] (UserCreditID ASC);
+CREATE NONCLUSTERED INDEX [IX_Files_UploadedByUserId] ON [dbo].[Files] (UploadedByUserId ASC);
 CREATE NONCLUSTERED INDEX [IX_Invoices_UserID] ON [dbo].[Invoices] (UserID ASC);
 CREATE NONCLUSTERED INDEX [IX_Payments_InvoiceID] ON [dbo].[Payments] (InvoiceID ASC);
 CREATE NONCLUSTERED INDEX [IX_Payments_UserID] ON [dbo].[Payments] (UserID ASC);
 CREATE NONCLUSTERED INDEX [IX_TaskStatusMessages_UserId] ON [dbo].[TaskStatusMessages] (UserId ASC);
+CREATE UNIQUE NONCLUSTERED INDEX [IX_AdminTaskInstances_TaskID_Year_Month] ON [dbo].[AdminTaskInstances] (TaskID ASC, Year ASC, Month ASC);
 CREATE NONCLUSTERED INDEX [IX_UserCredits_SourcePaymentID] ON [dbo].[UserCredits] (SourcePaymentID ASC);
 CREATE NONCLUSTERED INDEX [IX_UserCredits_UserID] ON [dbo].[UserCredits] (UserID ASC);
+GO
+
+-- ================================================
+-- STEP 4: ADD FOREIGN KEY CONSTRAINTS
+-- ================================================
+ALTER TABLE [dbo].[AdminTaskInstances] ADD CONSTRAINT [FK_AdminTaskInstances_AdminTasks_TaskID] FOREIGN KEY (TaskID) REFERENCES [dbo].[AdminTasks] (TaskID) ON DELETE CASCADE;
+ALTER TABLE [dbo].[AdminTaskInstances] ADD CONSTRAINT [FK_AdminTaskInstances_AspNetUsers_AssignedToUserId] FOREIGN KEY (AssignedToUserId) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE SET NULL;
+ALTER TABLE [dbo].[AdminTaskInstances] ADD CONSTRAINT [FK_AdminTaskInstances_AspNetUsers_CompletedByUserId] FOREIGN KEY (CompletedByUserId) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE SET NULL;
+ALTER TABLE [dbo].[AspNetRoleClaims] ADD CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY (RoleId) REFERENCES [dbo].[AspNetRoles] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[AspNetUserClaims] ADD CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY (UserId) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[AspNetUserLogins] ADD CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY (UserId) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[AspNetUserRoles] ADD CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY (RoleId) REFERENCES [dbo].[AspNetRoles] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[AspNetUserRoles] ADD CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY (UserId) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[AspNetUserTokens] ADD CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY (UserId) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[BillableAssets] ADD CONSTRAINT [FK_BillableAssets_AspNetUsers_UserID] FOREIGN KEY (UserID) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE SET NULL;
+ALTER TABLE [dbo].[CategoryFiles] ADD CONSTRAINT [FK_CategoryFiles_PDFCategories_CategoryID] FOREIGN KEY (CategoryID) REFERENCES [dbo].[PDFCategories] (CategoryID) ON DELETE CASCADE;
+ALTER TABLE [dbo].[CreditApplications] ADD CONSTRAINT [FK_CreditApplications_Invoices_InvoiceID] FOREIGN KEY (InvoiceID) REFERENCES [dbo].[Invoices] (InvoiceID) ON DELETE NO ACTION;
+ALTER TABLE [dbo].[CreditApplications] ADD CONSTRAINT [FK_CreditApplications_UserCredits_UserCreditID] FOREIGN KEY (UserCreditID) REFERENCES [dbo].[UserCredits] (UserCreditID) ON DELETE NO ACTION;
+ALTER TABLE [dbo].[Files] ADD CONSTRAINT [FK_Files_AspNetUsers_UploadedByUserId] FOREIGN KEY (UploadedByUserId) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE SET NULL;
+ALTER TABLE [dbo].[Invoices] ADD CONSTRAINT [FK_Invoices_AspNetUsers_UserID] FOREIGN KEY (UserID) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[Payments] ADD CONSTRAINT [FK_Payments_AspNetUsers_UserID] FOREIGN KEY (UserID) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[Payments] ADD CONSTRAINT [FK_Payments_Invoices_InvoiceID] FOREIGN KEY (InvoiceID) REFERENCES [dbo].[Invoices] (InvoiceID) ON DELETE NO ACTION;
+ALTER TABLE [dbo].[TaskStatusMessages] ADD CONSTRAINT [FK_TaskStatusMessages_AspNetUsers_UserId] FOREIGN KEY (UserId) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[UserCredits] ADD CONSTRAINT [FK_UserCredits_AspNetUsers_UserID] FOREIGN KEY (UserID) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE CASCADE;
+ALTER TABLE [dbo].[UserCredits] ADD CONSTRAINT [FK_UserCredits_Payments_SourcePaymentID] FOREIGN KEY (SourcePaymentID) REFERENCES [dbo].[Payments] (PaymentID) ON DELETE NO ACTION;
+ALTER TABLE [dbo].[UserProfile] ADD CONSTRAINT [FK_UserProfile_AspNetUsers_UserId] FOREIGN KEY (UserId) REFERENCES [dbo].[AspNetUsers] (Id) ON DELETE CASCADE;
+GO
+
+-- ================================================
+-- STEP 5: INSERT REQUIRED DATA
+-- ================================================
+-- Insert Entity Framework Migration History
+INSERT INTO [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) 
+VALUES (N'00000000000000_CreateIdentitySchema', N'9.0.0');
 GO
 
 -- ================================================
 -- SCRIPT COMPLETE
 -- ================================================
 PRINT 'Database structure created successfully!'
-PRINT 'Tables: 22'
-PRINT 'Primary Keys: 22' 
-PRINT 'Indexes: 19'
-PRINT 'Note: Foreign keys still need to be added if they exist in your source database'
+PRINT 'Tables: 23'
+PRINT 'Primary Keys: 23' 
+PRINT 'Indexes: 23'
+PRINT 'Foreign Keys: 21'
+PRINT 'Ready for ASP.NET Core Identity and Entity Framework!'
